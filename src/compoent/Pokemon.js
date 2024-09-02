@@ -2,16 +2,21 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonDetail from './PokemonDetail';
+import logo from '../assets/logo.png'
 import pokeball from '../assets/pokeball.png';
 
 const Pokemon = () => {
-    
     const [pokemonData, setPokemonData] = useState([])
     const [currentpage, setCurrentpage] = useState(1);
     const [pokemonDetailData, setPokemonDetailData] = useState([]);
-    const pokemonPerPage = 10;
-    const totalPokemon = 151
+    const [searchList, setSearchList] = useState();
+    const pokemonPerPage = 20;
+    const totalPokemon = 151;
+    const [searchPokemonLenght, setSearchPokemonLenght] = useState(1);
+    const [searchInput, setSearchInput] = useState('');
+    const view = document.querySelector('.pokemonDetail');
     
+    //포켓몬 api
     useEffect(() => {
         const fetchData = async()=>{
             const allPokemonData = [];
@@ -21,8 +26,7 @@ const Pokemon = () => {
                 const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
                 const koreanName = speciesResponse.data.names.find(name => name.language.name === 'ko');
                 const koreanGenera = speciesResponse.data.genera.find(name => name.language.name === 'ko').genus;
-                const koreanReFlavor = speciesResponse.data.flavor_text_entries.find(name => name.language.name === 'ko').flavor_text
-                
+                const koreanFlavor = speciesResponse.data.flavor_text_entries.find(name => name.language.name === 'ko').flavor_text;
                 
                 const typesWithKoreanNames = await Promise.all(
                     response.data.types.map(async (type) => {
@@ -65,55 +69,116 @@ const Pokemon = () => {
                     abilities : abilitiesWithKoreanNames,
                     move : movesWithKoreanNames,
                     genera : koreanGenera,
-                    flavor : koreanReFlavor
+                    flavor : koreanFlavor
                 });
             }
             setPokemonData(allPokemonData);
         };
-        fetchData()
+        fetchData();
     },[currentpage])
-    
-    
+ 
     const fetchMoerData = ()=> {
-        setCurrentpage((prevPage) => prevPage + 1)
-    }
+        setCurrentpage((prevPage) => prevPage + 1);
+    };
     
-    
-    const onPokemonDataliData = (item)=> {
+    const onPokemonDataliData = (idx, item)=> {
         
-        setPokemonDetailData([item]) 
+        var items = document.querySelectorAll('.listUl .item');
+        
+        for (let i = 0; i < items.length; i++) {
+            items[i].classList.remove('on');
+        };
+        
+        idx.parentNode.classList.add('on');
+        view.classList.add('on');
+        setPokemonDetailData([item]); 
+
+    };
+    
+    const onCloseView = ()=> {
+        view.classList.remove('on');
+    };
+
+    //포켓몬 검색
+    const search = (e) =>{
+    
+        setSearchInput(e.target.value);
+        
+        if(searchInput.length >= 0) {
+            var searchDataList = pokemonData.filter((item)=>{
+                    return item.korean_name.toLowerCase().includes(searchInput?.toLowerCase());
+                    
+            })
+            
+            setSearchList(searchDataList);
+            setSearchPokemonLenght(searchDataList.length);
+        }
         
     }
     
     return (
         <div className="content">
+            
+            <input type="search" name="" id="search" placeholder='Search..' value={searchInput} onChange={(e)=>search(e)}/>
+          
             <div className="pokemonList">
+             
                 <InfiniteScroll
-                    dataLength={pokemonData.length}
-                    next={fetchMoerData}
-                    hasMore={currentpage * pokemonPerPage < 151}
-                    loader={<div className="loading"><img src={pokeball} alt=""/></div>}
+                    height={'100%'}
+                    dataLength={searchInput.length <= 0 ? pokemonData.length : searchPokemonLenght.length}
+                    next={searchInput.length <= 0 ? fetchMoerData : ''}
+                    hasMore={searchInput.length <= 0 ? currentpage * pokemonPerPage < 151 : ''}
+                    loader={<div className="loading"><img src={pokeball} alt="loading"/></div>}
                     className="container"
                 >
-                <ul>
-                    {
-                        pokemonData.map((item)=>{
+                    <ul className="listUl">
+                        {
+                            searchInput.length <= 0 
+                            ? pokemonData.map((item)=>{
                             return <li key={item.data.id} className="item">
-                
-                                    <img src={item.data.sprites.front_default} alt="" />
-                                    <p>{item.korean_name}</p>
-                                    <button type="button" onClick={()=>onPokemonDataliData(item)}>qjxms</button>
-                            </li>
-                        })
-                    }
-                </ul>
+                                    <button onClick={(e)=>onPokemonDataliData(e.target,item)}>
+                                        <img src={item.data.sprites.front_default} alt={item.korean_name} />
+                                        <p>{item.korean_name}</p>
+                                        <div className="types">
+                                            {
+                                                item.type.map(({type}, idx)=>{
+                                                    return <span key={idx} className={type.name}>
+                                                                {type.korean_name}
+                                                            </span>
+                                                })
+                                            }
+                                        </div>
+                                    </button>
+                                </li>
+                            })
+                            : searchList.map((item)=>{
+                            return <li key={item.data.id} className="item">
+                                    <button onClick={(e)=>onPokemonDataliData(e.target,item)}>
+                                        <img src={item.data.sprites.front_default} alt={item.korean_name} />
+                                        <p>{item.korean_name}</p>
+                                        <div className="types">
+                                            {
+                                                item.type.map(({type}, idx)=>{
+                                                    return <span key={idx} className={type.name}>
+                                                                {type.korean_name}
+                                                            </span>
+                                                })
+                                            }
+                                        </div>
+                                    </button>
+                                </li>
+                            })
+                        }
+                    </ul>
                 </InfiniteScroll>
+                      
             </div>
             
             <div className="pokemonDetail">
+                <button className="closeView" onClick={()=>onCloseView()}></button>
                 {
                     pokemonDetailData.length === 0
-                    ? <div>리스트 djqt음</div>
+                    ? <div className="listDefault"><img src={logo} alt="포켓몬 로고" className='logo' /></div>
                     : <PokemonDetail pokemon={pokemonDetailData[0]}/>
                 }
             </div>
