@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/pokemon/static/css/main.9903c136.css",
+    "main.js": "/pokemon/static/js/main.545e1e3a.js",
+    "static/js/453.78b87f59.chunk.js": "/pokemon/static/js/453.78b87f59.chunk.js",
+    "static/media/logo.png": "/pokemon/static/media/logo.263fe2e31159c665c048.png",
+    "static/media/header.svg": "/pokemon/static/media/header.77f9959e8ba7c787ce17.svg",
+    "index.html": "/pokemon/index.html",
+    "main.9903c136.css.map": "/pokemon/static/css/main.9903c136.css.map",
+    "main.545e1e3a.js.map": "/pokemon/static/js/main.545e1e3a.js.map",
+    "453.78b87f59.chunk.js.map": "/pokemon/static/js/453.78b87f59.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9903c136.css",
+    "static/js/main.545e1e3a.js"
+  ]
+}
