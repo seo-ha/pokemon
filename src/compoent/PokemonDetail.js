@@ -80,7 +80,7 @@ function PokemonDetail({pokemon}) {
               <button className="wid100 bg1"></button>
             </div>
             
-            <div className="flexBox">
+            <div className="flexBox mHide">
               <button className="wid30 bg2"></button>
               <button className="wid70 bg3"></button>
             </div>

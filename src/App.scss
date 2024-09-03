@@ -22,6 +22,7 @@ header {
 
 /*content*/
 .container {height: 100%;}
+
 .content {
     position: relative; display: flex; flex-grow: 1; overflow: hidden; background-color: #bf4747; border-radius: 0 10px 10px 10px;
     #search {position: absolute; top: 0; left: 25px; display: block; width: calc(100% / 4 - 50px); height: 40px; padding: 0 15px; font-size: 15px; background-color: white; border-radius: 4px; z-index: 3;}
@@ -87,7 +88,11 @@ header {
     .pokemonDetail {
         position: relative; width: 50%; height: 100%; 
         
-        .closeView {position: absolute; top: 25px; right: 25px; display: block; width: 32px; height: 32px; border: 2px solid;}
+        .closeView {
+            position: absolute; top: 25px; right: 25px; display: none; width: 32px; height: 32px;
+            &::after {content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(45deg); width: 3px; height: 28px; border-radius: 3px; background-color: #000; }
+            &::before {content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-45deg); width: 3px; height: 28px; border-radius: 3px; background-color: #000; }
+        }
         
         .listDefault {
             display: flex; align-items: center; justify-content: center; height: 100%;
@@ -125,7 +130,7 @@ header {
                 div.left { display: flex; flex-direction: column; align-items: center; width: 55%; padding: 20px 0;
                     
                     button {
-                        height: 100%; border-radius: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+                        height: 100%; min-height: 28px; border-radius: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
                         
                         &.wid30 {width: 30%;}
                         &.wid70 {width: 70%;}
@@ -189,7 +194,98 @@ header {
             width: 100%; box-shadow: none;
         }
         .pokemonDetail {
-           position: absolute; top: 0; left: 0; width: 100%; z-index: 50; background-color: #bf4747;
+           opacity: 0; pointer-events: none; transition: opacity .3s; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: calc(100% - 60px); height: calc(100% - 60px); max-height: 1000px; border-radius: 10px; z-index: 50; background-color: #bf4747;
+           
+           &.on {opacity: 1; pointer-events: all;}
+           
+           .closeView {display: block}
+        }
+    }
+};
+
+@media (max-width:600px) {
+    .wrap { padding: 20px 15px; }
+    header {
+        height: 65px; min-height: 65px; padding: 0 15px;
+        &::after {height: 115px;}
+        
+        .logo {width: 105px;}
+        .ico {
+            gap: 0 6px; margin-left: 10px;
+            span,
+            &::after,
+            &::before {width: 16px; height: 16px;}
+        }
+    }
+    .content {
+        
+        #search { left: 17px; width: calc(50% - 30px); height: 34px; font-size: 12px;}
+        
+        .loading {padding: 40px 0;}
+        
+        .pokemonList {
+            padding: 55px 7px 20px 15px;
+            
+            .infinite-scroll-component.container {padding-right: 10px;}
+            .infinite-scroll-component.container::-webkit-scrollbar {width: 6px;}
+            
+            .listUl {
+                grid-template-columns: repeat(2, 1fr);
+                
+                li{
+                    .types {
+                        span {font-size: 12px}
+                    }
+                    
+                }
+            }
+        }
+        
+        .pokemonDetail {
+            width: calc(100% - 30px); height: calc(100% - 40px);
+            
+            .closeView {top: 15px; right: 15px;} 
+            
+            .detailBox  {
+                padding: 65px 15px 20px;
+                
+                .viewBox  {
+                    flex-grow: 1; max-height: max-content;
+                    .imgBox {
+                        img {max-width: 150px;}
+                    }
+                    .txtBox {
+                        padding: 15px 15px 30px;
+                        
+                        p, span {font-size: 15px}
+                    }
+                    
+                    .marginTop  {margin-top: 13px}
+                }
+                
+                .btns {
+                    flex-grow: 0; height: 150px; gap: 15px;
+                    
+                    div.left {
+                        width: 50%; padding: 0;
+                        
+                        button {border-radius: 6px;}
+                        
+                        .flexBox  {
+                            gap: 0 4px;
+                            
+                            &.mHide {display: none;}
+                            & + .flexBox  {margin-top: 8px;}
+                        }
+                    }
+                    
+                    div.right {
+                        width: 50%;
+                        
+                        .gridBox { width: fit-content; height: 100%;}
+                    }
+                 }
+            }
         }
     }
 };
