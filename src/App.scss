@@ -1,5 +1,5 @@
 .wrap { display: flex; align-items: center; justify-content: center; height: 100dvh; padding: 30px; background-color: black;}
-main { display: flex; flex-direction: column; width: 100%; max-width: 1500px; height: 100%; max-height: 1000px;}
+main { display: flex; flex-direction: column; width: 100%; max-width: 1400px; height: 100%; max-height: 1000px;}
 
 /*header*/
 header {
@@ -25,7 +25,10 @@ header {
 
 .content {
     position: relative; display: flex; flex-grow: 1; overflow: hidden; background-color: #bf4747; border-radius: 0 10px 10px 10px;
-    #search {position: absolute; top: 0; left: 25px; display: block; width: calc(100% / 4 - 50px); height: 40px; padding: 0 15px; font-size: 15px; background-color: white; border-radius: 4px; z-index: 3;}
+    #search {
+        position: absolute; top: 0; left: 25px; display: block; width: calc(100% / 4 - 50px); height: 40px; padding: 0 15px; font-size: 15px; background-color: rgb(204, 204, 204); border-radius: 4px; z-index: 3;
+        &.on { background-color: white; }
+    }
     
     .loading {
        text-align: center; padding: 80px 0;
@@ -111,17 +114,26 @@ header {
                 &::-webkit-scrollbar-track {width: 100%; background-color: black; margin: 5px 0;}
                 
                 .imgBox {
-                    position: relative; text-align: center; padding-top: 30px;
-                    img {width: 95%; max-width: 200px;}
+                    position: relative; display: flex; align-items: center; justify-content: center; width: 180px; height: 180px; margin: 60px auto 15px;
+                    img {width: 100%; height: 100%; object-fit: contain;}
                 }
                 
                 .txtBox {
-                    padding: 20px 30px 35px; 
+                    padding: 20px 0 35px; 
                     p {text-indent: -57px; padding-left: 57px;}
                     p, span { color: #377f0b; font-size: 18px; line-height: 1.5; word-break: keep-all;}
+                    
+                    .light {
+                        padding: 5px 30px 5px 90px;
+                        
+                        &.on {
+                             background-color: #377f0b; color: white;
+                            span { background-color: #377f0b; color: white;}
+                        }
+                    }
                 }
                 
-                .marginTop {margin-top: 20px;text-indent: -57px; padding-left: 57px;}
+                .marginTop {margin-top: 15px; text-indent: -57px; padding-left: 57px;}
             }
             
             .btns {
@@ -136,8 +148,8 @@ header {
                         &.wid70 {width: 70%;}
                         &.wid100 {width: 100%;}
                         
-                        &.bg1 {background-color: #1d694d;}
-                        &.bg2 {background-color: #998416;}
+                        &.bg1 {background-color: #1c7957;}
+                        &.bg2 {background-color: #cdaf0f;}
                         &.bg3 {background-color: #162e75;}
                     }
                     
@@ -154,20 +166,24 @@ header {
                     .gridBox {width: 100%; aspect-ratio: auto 1/1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);}
                     
                     button {
-                        display: block; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); background-color: #717171;
+                       position: relative; display: block; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); background-color: #717171;
                         
-                        &.top {grid-column-start: 2; border-radius: 10px 10px 0 0; }
+                        &.top {
+                            grid-column-start: 2; border-radius: 10px 10px 0 0; 
+                            
+                            &::after {content: ''; position: absolute; top: 55%; left: 50%; width: 15px; height: 15px; transform: translate(-50%, -50%) rotate(315deg); border-top: 2px solid #adadad; border-right: 2px solid #adadad;}
+                        }
                         &.left {grid-column-start: 1; grid-row-start: 2; border-radius: 10px 0 0 10px; }
                         &.center {grid-column-start: 2; grid-row-start: 2;}
                         &.right {grid-column-start: 3; grid-row-start: 2; border-radius: 0 10px 10px 0;}
-                        &.bottom{grid-column-start: 2; grid-row-start: 3; border-radius: 0 0 10px 10px;}
+                        &.bottom{grid-column-start: 2; grid-row-start: 3; border-radius: 0 0 10px 10px;                            
+                            &::after {content: ''; position: absolute; top: 45%; left: 50%; width: 15px; height: 15px; transform: translate(-50%, -50%) rotate(135deg); border-top: 2px solid #adadad; border-right: 2px solid #adadad;}
+                        }
                     }
                 }
                 
             }
         }
-        
-        
         
     }
 }
@@ -251,16 +267,18 @@ header {
                 
                 .viewBox  {
                     flex-grow: 1; max-height: max-content;
-                    .imgBox {
-                        img {max-width: 150px;}
-                    }
+                    .imgBox { margin: 40px auto 15px; width: 100px; height: 100px; }
                     .txtBox {
-                        padding: 15px 15px 30px;
+                        padding: 15px 0 30px;
                         
                         p, span {font-size: 15px}
+                        
+                        .light {
+                            padding: 5px 15px 5px 80px;
+                        }
                     }
                     
-                    .marginTop  {margin-top: 13px}
+                    .marginTop  {margin-top: 10px}
                 }
                 
                 .btns {

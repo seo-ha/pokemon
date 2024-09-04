@@ -1,84 +1,37 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonDetail from './PokemonDetail';
 import logo from '../assets/logo.png'
 import pokeball from '../assets/pokeball.png';
+import { pokemonFetch } from "../fetchs/pokemonFetch";
+import { pokemonAllFetch } from "../fetchs/pokemonAllFetch";
 
 const Pokemon = () => {
+   
     const [pokemonData, setPokemonData] = useState([])
-    const [currentpage, setCurrentpage] = useState(1);
+    const [serchpokemonData, setSerchPokemonData] = useState([])
     const [pokemonDetailData, setPokemonDetailData] = useState([]);
     const [searchList, setSearchList] = useState();
-    const pokemonPerPage = 20;
-    const totalPokemon = 151;
+    const [currentpage, setCurrentpage] = useState(1);
     const [searchPokemonLenght, setSearchPokemonLenght] = useState(1);
     const [searchInput, setSearchInput] = useState('');
     const view = document.querySelector('.pokemonDetail');
+    const pokemonPerPage = 30;
+
     
     //포켓몬 api
     useEffect(() => {
-        const fetchData = async()=>{
-            const allPokemonData = [];
-            for (let i = 1; i <= Math.min(currentpage * pokemonPerPage, totalPokemon) ; i++) {
-                
-                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-                const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
-                const koreanName = speciesResponse.data.names.find(name => name.language.name === 'ko');
-                const koreanGenera = speciesResponse.data.genera.find(name => name.language.name === 'ko').genus;
-                const koreanFlavor = speciesResponse.data.flavor_text_entries.find(name => name.language.name === 'ko').flavor_text;
-                
-                const typesWithKoreanNames = await Promise.all(
-                    response.data.types.map(async (type) => {
-                      const typeResponse = await axios.get(type.type.url);
-                      const koreanTypeName = typeResponse.data.names.find(
-                        (name) => name.language.name === 'ko'
-                      ).name;
-                      return { ...type, type: { ...type.type, korean_name: koreanTypeName } };
-                    })
-                );
-                
-                const abilitiesWithKoreanNames = await Promise.all(
-                    response.data.abilities.map(async (ability)=>{
-                        const abilityResponse = await axios.get(ability.ability.url)
-                        const koreanAbilityName = abilityResponse.data.names.find(
-                            (name) => name.language.name === 'ko'
-                        ).name;
-                        return { ...ability, ability: { ...ability.ability, korean_name: koreanAbilityName } };
-                        
-                    })
-                )
-                
-                const movesWithKoreanNames = await Promise.all(
-                    response.data.moves.map(async (move) => {
-                      const moveResponse = await axios.get(move.move.url);
-                      const koreanMoveName = moveResponse.data.names.find(
-                        (name) => name.language.name === 'ko'
-                    );
-                      
-                    return { ...move, move: { ...move.move, korean_name: koreanMoveName} };
-
-                    })
-                );
-                
-                //최종 데이터
-                allPokemonData.push({ 
-                    ...response,
-                    korean_name: koreanName.name, 
-                    type : typesWithKoreanNames,
-                    abilities : abilitiesWithKoreanNames,
-                    move : movesWithKoreanNames,
-                    genera : koreanGenera,
-                    flavor : koreanFlavor
-                });
-            }
-            setPokemonData(allPokemonData);
-        };
-        fetchData();
+        
+        pokemonAllFetch(setSerchPokemonData);
+        pokemonFetch({setPokemonData, currentpage, pokemonPerPage});
+        
     },[currentpage])
- 
+    
     const fetchMoerData = ()=> {
         setCurrentpage((prevPage) => prevPage + 1);
+        console.log('MORE');
+        
     };
     
     const onPokemonDataliData = (idx, item)=> {
@@ -105,21 +58,17 @@ const Pokemon = () => {
         setSearchInput(e.target.value);
         
         if(searchInput.length >= 0) {
-            var searchDataList = pokemonData.filter((item)=>{
-                    return item.korean_name.toLowerCase().includes(searchInput?.toLowerCase());
-                    
-            })
+            var searchDataList = serchpokemonData.filter((item)=> item.korean_name.includes(e.target.value))
             
             setSearchList(searchDataList);
             setSearchPokemonLenght(searchDataList.length);
         }
-        
     }
     
     return (
         <div className="content">
             
-            <input type="search" name="" id="search" placeholder='Search..' value={searchInput} onChange={(e)=>search(e)}/>
+            <input className={serchpokemonData.length > 0 ? 'on' : ''} type="search" name="" id="search" placeholder={serchpokemonData.length > 0 ? 'search...' : 'loading..'} value={searchInput} onChange={(e)=>search(e)} disabled={serchpokemonData.length > 0 ? false : true}/>
           
             <div className="pokemonList">
              

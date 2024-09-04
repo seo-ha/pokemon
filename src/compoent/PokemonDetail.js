@@ -1,18 +1,52 @@
 
 function PokemonDetail({pokemon}) {
+  
+  const txts = document.querySelectorAll('.light');
+  let idx = 0;
+  
+  const moveTop = () => {
+    if (idx === 5) {
+      idx = 0;
+    }
+    
+    for (let i = 0; i < txts.length; i++) {
+      if(i === idx) {
+        txts[i].classList.add('on')
+      } else {
+         txts[i].classList.remove('on')
+      }
+      
+    }
+    idx ++ ;
+  }
+  
+  const moveBottom = () => {
+    if (idx === -1) {
+      idx = 4;
+    }
+    
+    for (let i = 0; i < txts.length; i++) {
+      if(i === idx) {
+        txts[i].classList.add('on')
+      } else {
+         txts[i].classList.remove('on')
+      }
+    }
+    idx -- ;
+  }
     
   return (
     <div className="detailBox">
       
       <div className="viewBox">
         <div className="imgBox">
-          <img src={pokemon.data.sprites.front_default} alt={pokemon.korean_name} />
+          <img src={pokemon.data.sprites.other.showdown.front_default} alt={pokemon.korean_name} />
         </div>
         <div className="txtBox">
         
-          <p className="name">이름 : {pokemon.korean_name} [ { pokemon.genera } ]</p>
+          <p className="name light">이름 : {pokemon.korean_name} [ { pokemon.genera } ]</p>
         
-          <div className="types marginTop">
+          <div className="types marginTop light">
             <span>속성 : </span>
             {
                 pokemon.type.map(({type}, idx)=>{
@@ -24,7 +58,7 @@ function PokemonDetail({pokemon}) {
             }
           </div>
         
-          <div className="ability marginTop">
+          <div className="ability marginTop light">
             <span>특성 : </span>
             {
                 pokemon.abilities.map(({ability}, idx)=>{
@@ -36,9 +70,9 @@ function PokemonDetail({pokemon}) {
             }
           </div>
         
-          <p className="name marginTop">특징 : {pokemon.flavor}</p>
+          <p className="name marginTop light">특징 : {pokemon.flavor}</p>
         
-          <div className="moves marginTop">
+          <div className="moves marginTop light">
             <span>기술 : </span>
             {
                 pokemon.move.map(({move}, idx)=>{
@@ -89,11 +123,11 @@ function PokemonDetail({pokemon}) {
           
           <div className="right">
               <div className="gridBox">
-                <button className="top"></button>
+                <button className="top" onClick={moveBottom}></button>
                 <button className="left"></button>
                 <button className="center"></button>
                 <button className="right"></button>
-                <button className="bottom"></button>
+                <button className="bottom"onClick={moveTop}></button>
               </div>
           </div>
           
