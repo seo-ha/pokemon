@@ -14,9 +14,9 @@ function PokemonDetail({pokemon}) {
       var targetClass = txts[i];
   
       if(i === moveIdx) {
-        targetClass.classList.add('on')
+        targetClass?.classList.add('on')
       } else {
-        targetClass.classList.remove('on')
+        targetClass?.classList.remove('on')
       }
       
       // console.log(txts[i].classList);
@@ -35,9 +35,9 @@ function PokemonDetail({pokemon}) {
       var targetClass = txts[i];
       
       if(i === moveIdx) {
-        targetClass.classList.add('on')
+        targetClass?.classList.add('on')
       } else {
-        targetClass.classList.remove('on')
+        targetClass?.classList.remove('on')
       }
     }
     
