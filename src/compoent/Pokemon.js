@@ -5,12 +5,13 @@ import PokemonDetail from './PokemonDetail';
 import logo from '../assets/logo.png'
 import pokeball from '../assets/pokeball.png';
 import { pokemonFetch } from "../fetchs/pokemonFetch";
+import { pokemonDetailFetch } from "../fetchs/pokemonFetch";
 import { pokemonAllFetch } from "../fetchs/pokemonAllFetch";
 
 const Pokemon = () => {
    
     const [pokemonData, setPokemonData] = useState([])
-    const [serchpokemonData, setSerchPokemonData] = useState([])
+    const [searchPokemonData, setSerchPokemonData] = useState([])
     const [pokemonDetailData, setPokemonDetailData] = useState([]);
     const [searchList, setSearchList] = useState();
     const [currentpage, setCurrentpage] = useState(1);
@@ -20,34 +21,40 @@ const Pokemon = () => {
     const pokemonPerPage = 30;
 
     
-    //포켓몬 api
+    //포켓몬 api 받아오기
     useEffect(() => {
-        
-        pokemonAllFetch(setSerchPokemonData);
         pokemonFetch({setPokemonData, currentpage, pokemonPerPage});
-        
+        pokemonAllFetch(setSerchPokemonData);
+
     },[currentpage])
     
+    //스크롤을 내렸을때 페이지 추가하기
     const fetchMoerData = ()=> {
         setCurrentpage((prevPage) => prevPage + 1);
-        console.log('MORE');
-        
     };
     
+    //포켓몬 디테일 페이지 
     const onPokemonDataliData = (idx, item)=> {
+        const id = item.id
+        pokemonDetailFetch({ id, setPokemonDetailData});
         
         var items = document.querySelectorAll('.listUl .item');
-        
+        const detailTxts = document.querySelectorAll('.light');
+
         for (let i = 0; i < items.length; i++) {
             items[i].classList.remove('on');
         };
         
+        for (let i = 0; i < detailTxts.length; i++) {
+            detailTxts[i].classList.remove('on')
+        }
+        
         idx.parentNode.classList.add('on');
         view.classList.add('on');
-        setPokemonDetailData([item]); 
-
+        
     };
     
+    //모바일에서 디테일 페이지 닫기 버튼
     const onCloseView = ()=> {
         view.classList.remove('on');
     };
@@ -58,7 +65,7 @@ const Pokemon = () => {
         setSearchInput(e.target.value);
         
         if(searchInput.length >= 0) {
-            var searchDataList = serchpokemonData.filter((item)=> item.korean_name.includes(e.target.value))
+            var searchDataList = searchPokemonData.filter((item)=> item.korean_name.includes(e.target.value))
             
             setSearchList(searchDataList);
             setSearchPokemonLenght(searchDataList.length);
@@ -68,7 +75,7 @@ const Pokemon = () => {
     return (
         <div className="content">
             
-            <input className={serchpokemonData.length > 0 ? 'on' : ''} type="search" name="" id="search" placeholder={serchpokemonData.length > 0 ? 'search...' : 'loading..'} value={searchInput} onChange={(e)=>search(e)} disabled={serchpokemonData.length > 0 ? false : true}/>
+            <input className={searchPokemonData.length > 0 ? 'on' : ''} type="search" name="" id="search" placeholder={searchPokemonData.length > 0 ? 'search...' : 'loading..'} value={searchInput} onChange={(e)=>search(e)} disabled={searchPokemonData.length > 0 ? false : true}/>
           
             <div className="pokemonList">
              
@@ -85,7 +92,7 @@ const Pokemon = () => {
                             searchInput.length <= 0 
                             ? pokemonData.map((item)=>{
                             return <li key={item.data.id} className="item">
-                                    <button onClick={(e)=>onPokemonDataliData(e.target,item)}>
+                                    <button onClick={(e)=>onPokemonDataliData(e.target,item.data)}>
                                         <img src={item.data.sprites.front_default} alt={item.korean_name} />
                                         <p>{item.korean_name}</p>
                                         <div className="types">
@@ -101,9 +108,9 @@ const Pokemon = () => {
                                 </li>
                             })
                             : searchList.map((item)=>{
-                            return <li key={item.data.id} className="item">
+                            return <li key={item.id} className="item">
                                     <button onClick={(e)=>onPokemonDataliData(e.target,item)}>
-                                        <img src={item.data.sprites.front_default} alt={item.korean_name} />
+                                        <img src={item.img} alt={item.korean_name} />
                                         <p>{item.korean_name}</p>
                                         <div className="types">
                                             {

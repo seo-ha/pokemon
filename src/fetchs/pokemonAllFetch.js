@@ -9,8 +9,6 @@ export const pokemonAllFetch = (setSerchPokemonData) => {
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
             const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
             const koreanName = speciesResponse.data.names.find(name => name.language.name === 'ko');
-            const koreanGenera = speciesResponse.data.genera.find(name => name.language.name === 'ko').genus;
-            const koreanFlavor = speciesResponse.data.flavor_text_entries.find(name => name.language.name === 'ko').flavor_text;
             
             const typesWithKoreanNames = await Promise.all(
                 response.data.types.map(async (type) => {
@@ -22,38 +20,12 @@ export const pokemonAllFetch = (setSerchPokemonData) => {
                 })
             );
             
-            const abilitiesWithKoreanNames = await Promise.all(
-                response.data.abilities.map(async (ability)=>{
-                    const abilityResponse = await axios.get(ability.ability.url)
-                    const koreanAbilityName = abilityResponse.data.names.find(
-                        (name) => name.language.name === 'ko'
-                    ).name;
-                    return { ...ability, ability: { ...ability.ability, korean_name: koreanAbilityName } };
-                    
-                })
-            )
-            
-            const movesWithKoreanNames = await Promise.all(
-                response.data.moves.map(async (move) => {
-                  const moveResponse = await axios.get(move.move.url);
-                  const koreanMoveName = moveResponse.data.names.find(
-                    (name) => name.language.name === 'ko'
-                );
-                  
-                return { ...move, move: { ...move.move, korean_name: koreanMoveName} };
-
-                })
-            );
-            
             //최종 데이터
             allPokemonData.push({ 
-                ...response,
+                id : response.data.id,
+                img : response.data.sprites.front_default,
                 korean_name: koreanName.name, 
                 type : typesWithKoreanNames,
-                abilities : abilitiesWithKoreanNames,
-                move : movesWithKoreanNames,
-                genera : koreanGenera,
-                flavor : koreanFlavor
             });
         }
         setSerchPokemonData(allPokemonData);

@@ -1,38 +1,39 @@
 
 function PokemonDetail({pokemon}) {
-  
+
   const txts = document.querySelectorAll('.light');
-  let idx = 0;
+  
+  let moveIdx = 0;
   
   const moveTop = () => {
-    if (idx === 5) {
-      idx = 0;
+    if (moveIdx > 4 ) {
+      moveIdx = 0;
     }
-    
-    for (let i = 0; i < txts.length; i++) {
-      if(i === idx) {
+    for (let i = 0; i < 5; i++) {
+  
+      if(i === moveIdx) {
         txts[i].classList.add('on')
       } else {
          txts[i].classList.remove('on')
       }
       
     }
-    idx ++ ;
+    moveIdx ++ ;
   }
   
   const moveBottom = () => {
-    if (idx === -1) {
-      idx = 4;
+    if (moveIdx < 0) {
+      moveIdx = 4;
     }
-    
-    for (let i = 0; i < txts.length; i++) {
-      if(i === idx) {
+    for (let i = 0; i < 5; i++) {
+      if(i === moveIdx) {
         txts[i].classList.add('on')
       } else {
          txts[i].classList.remove('on')
       }
     }
-    idx -- ;
+    
+    moveIdx -- ;
   }
     
   return (
@@ -40,19 +41,19 @@ function PokemonDetail({pokemon}) {
       
       <div className="viewBox">
         <div className="imgBox">
-          <img src={pokemon.data.sprites.other.showdown.front_default} alt={pokemon.korean_name} />
+          <img src={pokemon[0].data.sprites.other.showdown.front_default} alt={pokemon[0].korean_name} />
         </div>
         <div className="txtBox">
         
-          <p className="name light">이름 : {pokemon.korean_name} [ { pokemon.genera } ]</p>
+          <p className="name light">이름 : {pokemon[0].korean_name} [ { pokemon[0].genera } ]</p>
         
           <div className="types marginTop light">
             <span>속성 : </span>
             {
-                pokemon.type.map(({type}, idx)=>{
+                pokemon[0].type.map(({type}, idx)=>{
                     return <span key={idx}>
                                 {type.korean_name}
-                                {idx < pokemon.type.length - 1 ? ', ' : ''}
+                                {idx < pokemon[0].type.length - 1 ? ', ' : ''}
                             </span>
                 })
             }
@@ -61,21 +62,21 @@ function PokemonDetail({pokemon}) {
           <div className="ability marginTop light">
             <span>특성 : </span>
             {
-                pokemon.abilities.map(({ability}, idx)=>{
+                pokemon[0].abilities.map(({ability}, idx)=>{
                     return <span key={idx}>
                                 {ability.korean_name}
-                                {idx < pokemon.abilities.length - 1 ? ', ' : ''}
+                                {idx < pokemon[0].abilities.length - 1 ? ', ' : ''}
                             </span>
                 })
             }
           </div>
         
-          <p className="name marginTop light">특징 : {pokemon.flavor}</p>
+          <p className="name marginTop light">특징 : {pokemon[0].flavor}</p>
         
           <div className="moves marginTop light">
             <span>기술 : </span>
             {
-                pokemon.move.map(({move}, idx)=>{
+                pokemon[0].move.map(({move}, idx)=>{
                   if (idx < 5) {
                     return <span key={idx}>
                                 {
