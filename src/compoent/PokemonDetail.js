@@ -10,12 +10,17 @@ function PokemonDetail({pokemon}) {
       moveIdx = 0;
     }
     for (let i = 0; i < 5; i++) {
+      
+      var targetClass = txts[i];
   
       if(i === moveIdx) {
-        txts[i].classList.add('on')
+        targetClass.classList.add('on')
       } else {
-         txts[i].classList.remove('on')
+        targetClass.classList.remove('on')
       }
+      
+      // console.log(txts[i].classList);
+      
       
     }
     moveIdx ++ ;
@@ -26,10 +31,13 @@ function PokemonDetail({pokemon}) {
       moveIdx = 4;
     }
     for (let i = 0; i < 5; i++) {
+      
+      var targetClass = txts[i];
+      
       if(i === moveIdx) {
-        txts[i].classList.add('on')
+        targetClass.classList.add('on')
       } else {
-         txts[i].classList.remove('on')
+        targetClass.classList.remove('on')
       }
     }
     
