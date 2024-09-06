@@ -23,7 +23,7 @@ export const pokemonAllFetch = (setSerchPokemonData) => {
             //최종 데이터
             allPokemonData.push({ 
                 id : response.data.id,
-                img : response.data.sprites.front_default,
+                img : response.data.sprites.other["official-artwork"].front_default,
                 korean_name: koreanName.name, 
                 type : typesWithKoreanNames,
             });

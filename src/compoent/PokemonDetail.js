@@ -19,9 +19,6 @@ function PokemonDetail({pokemon}) {
         targetClass?.classList.remove('on')
       }
       
-      // console.log(txts[i].classList);
-      
-      
     }
     moveIdx ++ ;
   }

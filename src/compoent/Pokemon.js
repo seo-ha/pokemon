@@ -26,6 +26,7 @@ const Pokemon = () => {
         pokemonFetch({setPokemonData, currentpage, pokemonPerPage});
         pokemonAllFetch(setSerchPokemonData);
 
+   
     },[currentpage])
     
     //스크롤을 내렸을때 페이지 추가하기
@@ -93,7 +94,7 @@ const Pokemon = () => {
                             ? pokemonData.map((item)=>{
                             return <li key={item.data.id} className="item">
                                     <button onClick={(e)=>onPokemonDataliData(e.target,item.data)}>
-                                        <img src={item.data.sprites.front_default} alt={item.korean_name} />
+                                        <img src={item.data.sprites.other["official-artwork"].front_default} alt={item.korean_name} />
                                         <p>{item.korean_name}</p>
                                         <div className="types">
                                             {
