@@ -46,7 +46,7 @@ function PokemonDetail({pokemon}) {
       
       <div className="viewBox">
         <div className="imgBox">
-          <img src={pokemon[0].data.sprites.other.showdown.front_default} alt={pokemon[0].korean_name} />
+          <img src={pokemon[0].data.sprites.other.showdown.front_default} alt={pokemon[0].korean_name}  loading="lazy"/>
         </div>
         <div className="txtBox">
         
