@@ -18,7 +18,7 @@ const Pokemon = () => {
     const [searchPokemonLenght, setSearchPokemonLenght] = useState(1);
     const [searchInput, setSearchInput] = useState('');
     const view = document.querySelector('.pokemonDetail');
-    const pokemonPerPage = 30;
+    const pokemonPerPage = 20;
 
     
     //포켓몬 api 받아오기
