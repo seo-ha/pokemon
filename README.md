@@ -1,7 +1,7 @@
 # 포켓몬 도감.
 
 ![로고](https://github.com/seo-ha/pokemon/blob/main/src/assets/portfolio.jpg)
-+ Next.js, Pokemon.api를 이용한 포켓몬 도감입니다.
++ React, Pokemon.api를 이용한 포켓몬 도감입니다.
 + 링크 : https://seo-ha.github.io/portfolio/
 <br/>
 
