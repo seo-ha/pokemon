@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# 포켓몬 도감.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![로고](https://github.com/seo-ha/pokemon/blob/main/src/assets/portfolio.jpg)
++ Next.js, Pokemon.api를 이용한 포켓몬 도감입니다.
++ 링크 : https://seo-ha.github.io/portfolio/
+<br/>
 
-## Available Scripts
+# 목차
++ [홈페이지 설명](#홈페이지-설명)
++ [문제 해결](#문제-해결)
++ [작업 화면](#작업-화면)
+<br/>
 
-In the project directory, you can run:
+## 홈페이지 설명
+포켓몬 1기의 포켓몬 도감입니다.
 
-### `npm start`
+애니에 나오는 포켓몬 도감의 모양을 모티브로 만들었으며, Components의 재활용을 높혔습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
++ axios로 원하는 데이터를 받아왔습니다.
++ filter를 사용해 원하는 포켓몬을 찾을 수 있습니다.
++ 선택한 포켓몬에 선택효과를 줬습니다.
++ infiniteScroll을 사용해 스크롤을 했을 때 데이터를 더 불러오도록 했습니다.
+<br/>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 문제 해결
 
-### `npm test`
+💥 하나의 함수만의 사용해 리스트, 상세의 데이터를 모두 가져와서 로딩속도가 느려졌다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🍀 리스트의 데이터만을 가져와서 로딩속도를 높혔으며 상세페이지는 선택한 포켓몬의 아이디를 함수에 props해서 데이터를 받아왔다.
 
-### `npm run build`
+</br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+💥💥 최초로 정해진 갯수의 데이터만을 가져오며 스크롤을 했을 때만 정해진 갯수의 데이트를 더 가져오기 때문에 검색을 했을 때 원하는 포켓몬이 안 나오는 현상이 나타났다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🍀🍀 두개의 함수를 만들어 리스트는 정해진 갯수만을 가져오고 검색은 151개의 모든 데이터를 받아오도록 했습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br/>
 
-### `npm run eject`
+## 작업 화면
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Main
+![main](https://github.com/seo-ha/pokemon/blob/main/src/assets/portfolio_1.png)
+<br/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 검색화면
+![work](https://github.com/seo-ha/pokemon/blob/main/src/assets/portfolio_2.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
