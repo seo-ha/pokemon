@@ -2,8 +2,10 @@ import axios from "axios";
 const totalPokemon = 151;
 
 export const pokemonAllFetch = (setSerchPokemonData) => {
+    
+    const allPokemonData = [];
+    
     const fetchData = async()=>{
-        const allPokemonData = [];
         for (let i = 1; i <= totalPokemon ; i++) {
             
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)

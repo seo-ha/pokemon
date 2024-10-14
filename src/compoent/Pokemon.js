@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonDetail from './PokemonDetail';
 import logo from '../assets/logo.png'
@@ -24,10 +24,12 @@ const Pokemon = () => {
     //포켓몬 api 받아오기
     useEffect(() => {
         pokemonFetch({setPokemonData, currentpage, pokemonPerPage});
-        pokemonAllFetch(setSerchPokemonData);
-
-   
-    },[currentpage])
+        
+        if(pokemonData.length === 0) { 
+            pokemonAllFetch(setSerchPokemonData)
+        }
+        
+    },[pokemonData.length, currentpage, pokemonPerPage])
     
     //스크롤을 내렸을때 페이지 추가하기
     const fetchMoerData = ()=> {
@@ -144,4 +146,4 @@ const Pokemon = () => {
     )
 }
 
-export default Pokemon;
+export default React.memo(Pokemon);

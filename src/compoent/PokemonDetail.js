@@ -1,40 +1,41 @@
 
 function PokemonDetail({pokemon}) {
 
-  const txts = document.querySelectorAll('.light');
+  
   
   let moveIdx = 0;
   
   const moveTop = () => {
-    if (moveIdx > 4 ) {
+    
+    let txts = document.querySelectorAll('.light');
+    if (moveIdx > txts.length ) {
       moveIdx = 0;
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < txts.length; i++) {
       
-      var targetClass = txts[i];
-  
       if(i === moveIdx) {
-        targetClass?.classList.add('on')
+        txts[i].classList.add('on')
       } else {
-        targetClass?.classList.remove('on')
+        txts[i].classList.remove('on')
       }
       
     }
     moveIdx ++ ;
+    
   }
   
   const moveBottom = () => {
+    let txts = document.querySelectorAll('.light');
+    
     if (moveIdx < 0) {
-      moveIdx = 4;
+      moveIdx = txts.length - 1;
     }
-    for (let i = 0; i < 5; i++) {
-      
-      var targetClass = txts[i];
+    for (let i = 0; i < txts.length; i++) {
       
       if(i === moveIdx) {
-        targetClass?.classList.add('on')
+        txts[i]?.classList.add('on')
       } else {
-        targetClass?.classList.remove('on')
+        txts[i]?.classList.remove('on')
       }
     }
     
@@ -129,11 +130,11 @@ function PokemonDetail({pokemon}) {
           
           <div className="right">
               <div className="gridBox">
-                <button className="top" onClick={moveBottom}></button>
+                <button className="top" onClick={() => moveBottom()}></button>
                 <button className="left"></button>
                 <button className="center"></button>
                 <button className="right"></button>
-                <button className="bottom"onClick={moveTop}></button>
+                <button className="bottom"onClick={() => moveTop()}></button>
               </div>
           </div>
           
