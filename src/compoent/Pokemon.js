@@ -39,7 +39,7 @@ const Pokemon = () => {
     
     //포켓몬 디테일 페이지 
     const onPokemonDataliData = (idx, id, name, type)=> {
-        console.log(id);
+    
         
         pokemonDetailFetch({id, name, type, setPokemonDetailData});
         
@@ -76,7 +76,6 @@ const Pokemon = () => {
             setSearchPokemonLenght(searchDataList.length);
         }
     }
-    console.log(searchList);
     
     return (
         <div className="content">
