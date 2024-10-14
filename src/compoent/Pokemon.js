@@ -25,11 +25,18 @@ const Pokemon = () => {
     useEffect(() => {
         pokemonFetch({setPokemonData, currentpage, pokemonPerPage});
         
-        if(pokemonData.length === 0) { 
+        // if(pokemonData.length === 0) { 
+        //     pokemonAllFetch(setSerchPokemonData)
+        // }
+        
+        if (pokemonData.length === 20) {
+            console.log(pokemonData.length, '아리아링라');
             pokemonAllFetch(setSerchPokemonData)
         }
         
     },[pokemonData.length, currentpage, pokemonPerPage])
+   
+    
     
     //스크롤을 내렸을때 페이지 추가하기
     const fetchMoerData = ()=> {

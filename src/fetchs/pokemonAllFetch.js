@@ -21,6 +21,7 @@ export const pokemonAllFetch = (setSerchPokemonData) => {
                   return { ...type, type: { ...type.type, korean_name: koreanTypeName } };
                 })
             );
+            console.log(i);
             
             //최종 데이터
             allPokemonData.push({ 
