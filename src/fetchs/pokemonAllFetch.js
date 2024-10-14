@@ -18,7 +18,7 @@ export const pokemonAllFetch = ((setSerchPokemonData) => {
                   const koreanTypeName = typeResponse.data.names.find(
                     (name) => name.language.name === 'ko'
                   ).name;
-                  return {type: {korean_name: koreanTypeName } };
+                  return {type: { ...type.type, korean_name: koreanTypeName } };
                 })
             );
             

@@ -39,7 +39,8 @@ const Pokemon = () => {
     
     //포켓몬 디테일 페이지 
     const onPokemonDataliData = (idx, id, name, type)=> {
-      
+        console.log(id);
+        
         pokemonDetailFetch({id, name, type, setPokemonDetailData});
         
         var items = document.querySelectorAll('.listUl .item');
@@ -75,6 +76,7 @@ const Pokemon = () => {
             setSearchPokemonLenght(searchDataList.length);
         }
     }
+    console.log(searchList);
     
     return (
         <div className="content">
@@ -113,12 +115,12 @@ const Pokemon = () => {
                             })
                             : searchList.map((item)=>{
                             return <li key={item.id} className="item">
-                                    <button onClick={(e)=>onPokemonDataliData(e.target, item.data.id, item.korean_name, item.type)}>
-                                        <img src={item.img} alt={item.korean_name}  loading="lazy"/>
+                                    <button onClick={(e)=> onPokemonDataliData(e.target, item.id, item.korean_name, item.type) }>
+                                        <img src={item.img} alt={item.korean_name} loading="lazy"/>
                                         <p>{item.korean_name}</p>
                                         <div className="types">
                                             {
-                                                item.type.map(({type}, idx)=>{
+                                                item.type.map(({type}, idx) => {
                                                     return <span key={idx} className={type.name}>
                                                                 {type.korean_name}
                                                             </span>
