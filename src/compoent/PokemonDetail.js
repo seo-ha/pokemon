@@ -47,7 +47,7 @@ function PokemonDetail({pokemon}) {
       
       <div className="viewBox">
         <div className="imgBox">
-          <img src={pokemon.data.sprites.other.showdown.front_default} alt={pokemon.korean_name}  loading="lazy"/>
+          <img src={pokemon.img} alt={pokemon.korean_name}  loading="lazy"/>
         </div>
         <div className="txtBox">
         
@@ -83,19 +83,14 @@ function PokemonDetail({pokemon}) {
             <span>기술 : </span>
             {
                 pokemon.move.map(({move}, idx)=>{
-                  if (idx < 5) {
-                    return <span key={idx}>
-                                {
-                                  move.korean_name === undefined
-                                  ? ''
-        
-                                  :  move.korean_name.name
-                                  }
-                                  {idx < 4 ? ', ' : ''}
-                            </span>
-                  } else {
-                    return false;
-                  }
+                  return <span key={idx}>
+                              {
+                                move.korean_name === undefined
+                                ? ''
+                                :  move.korean_name.name
+                                }
+                                {idx < 4 ? ', ' : ''}
+                          </span>
                 })
             }
           </div>

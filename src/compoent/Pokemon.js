@@ -96,9 +96,7 @@ const Pokemon = () => {
                             searchInput.length <= 0 
                             ? pokemonData.map((item)=>{
                             return <li key={item.data.id} className="item">
-                                    <button onClick={(e)=>
-                                        onPokemonDataliData(e.target, item.data.id, item.korean_name, item.type)
-                                        }>
+                                    <button onClick={(e)=> onPokemonDataliData(e.target, item.data.id, item.korean_name, item.type) }>
                                         <img src={item.data.sprites.other["official-artwork"].front_default} alt={item.korean_name} loading="lazy"/>
                                         <p>{item.korean_name}</p>
                                         <div className="types">
@@ -115,7 +113,7 @@ const Pokemon = () => {
                             })
                             : searchList.map((item)=>{
                             return <li key={item.id} className="item">
-                                    <button onClick={(e)=>onPokemonDataliData(e.target,item)}>
+                                    <button onClick={(e)=>onPokemonDataliData(e.target, item.data.id, item.korean_name, item.type)}>
                                         <img src={item.img} alt={item.korean_name}  loading="lazy"/>
                                         <p>{item.korean_name}</p>
                                         <div className="types">
