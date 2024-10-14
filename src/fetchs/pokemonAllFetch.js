@@ -1,7 +1,7 @@
 import axios from "axios";
 const totalPokemon = 151;
 
-export const pokemonAllFetch = (setSerchPokemonData) => {
+export const pokemonAllFetch = ((setSerchPokemonData) => {
     
     const allPokemonData = [];
     
@@ -21,7 +21,6 @@ export const pokemonAllFetch = (setSerchPokemonData) => {
                   return { ...type, type: { ...type.type, korean_name: koreanTypeName } };
                 })
             );
-            console.log(i);
             
             //최종 데이터
             allPokemonData.push({ 
@@ -36,5 +35,5 @@ export const pokemonAllFetch = (setSerchPokemonData) => {
     };
     
     fetchData()
-}
+})
 

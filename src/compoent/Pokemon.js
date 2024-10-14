@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonDetail from './PokemonDetail';
 import logo from '../assets/logo.png'
@@ -22,21 +22,15 @@ const Pokemon = () => {
 
     
     //포켓몬 api 받아오기
-    useEffect(() => {
-        pokemonFetch({setPokemonData, currentpage, pokemonPerPage});
-        
-        // if(pokemonData.length === 0) { 
-        //     pokemonAllFetch(setSerchPokemonData)
-        // }
-        
-        if (pokemonData.length === 20) {
-            console.log(pokemonData.length, '아리아링라');
-            pokemonAllFetch(setSerchPokemonData)
-        }
-        
-    },[pokemonData.length, currentpage, pokemonPerPage])
-   
     
+    useEffect(() => {
+        pokemonFetch({setPokemonData, currentpage, pokemonPerPage});  
+        
+    },[pokemonData.length, currentpage,])
+    
+    
+    useMemo(() => pokemonAllFetch(setSerchPokemonData), [searchPokemonData.length])  
+ 
     
     //스크롤을 내렸을때 페이지 추가하기
     const fetchMoerData = ()=> {
@@ -44,9 +38,9 @@ const Pokemon = () => {
     };
     
     //포켓몬 디테일 페이지 
-    const onPokemonDataliData = (idx, item)=> {
-        const id = item.id
-        pokemonDetailFetch({ id, setPokemonDetailData});
+    const onPokemonDataliData = (idx, id, name, type)=> {
+      
+        pokemonDetailFetch({id, name, type, setPokemonDetailData});
         
         var items = document.querySelectorAll('.listUl .item');
         const detailTxts = document.querySelectorAll('.light');
@@ -102,7 +96,9 @@ const Pokemon = () => {
                             searchInput.length <= 0 
                             ? pokemonData.map((item)=>{
                             return <li key={item.data.id} className="item">
-                                    <button onClick={(e)=>onPokemonDataliData(e.target,item.data)}>
+                                    <button onClick={(e)=>
+                                        onPokemonDataliData(e.target, item.data.id, item.korean_name, item.type)
+                                        }>
                                         <img src={item.data.sprites.other["official-artwork"].front_default} alt={item.korean_name} loading="lazy"/>
                                         <p>{item.korean_name}</p>
                                         <div className="types">

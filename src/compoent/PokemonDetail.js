@@ -47,19 +47,19 @@ function PokemonDetail({pokemon}) {
       
       <div className="viewBox">
         <div className="imgBox">
-          <img src={pokemon[0].data.sprites.other.showdown.front_default} alt={pokemon[0].korean_name}  loading="lazy"/>
+          <img src={pokemon.data.sprites.other.showdown.front_default} alt={pokemon.korean_name}  loading="lazy"/>
         </div>
         <div className="txtBox">
         
-          <p className="name light">이름 : {pokemon[0].korean_name} [ { pokemon[0].genera } ]</p>
+          <p className="name light">이름 : {pokemon.korean_name} [ { pokemon.genera } ]</p>
         
           <div className="types marginTop light">
             <span>속성 : </span>
             {
-                pokemon[0].type.map(({type}, idx)=>{
+                pokemon.type.map(({type}, idx)=>{
                     return <span key={idx}>
                                 {type.korean_name}
-                                {idx < pokemon[0].type.length - 1 ? ', ' : ''}
+                                {idx < pokemon.type.length - 1 ? ', ' : ''}
                             </span>
                 })
             }
@@ -68,21 +68,21 @@ function PokemonDetail({pokemon}) {
           <div className="ability marginTop light">
             <span>특성 : </span>
             {
-                pokemon[0].abilities.map(({ability}, idx)=>{
+                pokemon.abilities.map(({ability}, idx)=>{
                     return <span key={idx}>
                                 {ability.korean_name}
-                                {idx < pokemon[0].abilities.length - 1 ? ', ' : ''}
+                                {idx < pokemon.abilities.length - 1 ? ', ' : ''}
                             </span>
                 })
             }
           </div>
         
-          <p className="name marginTop light">특징 : {pokemon[0].flavor}</p>
+          <p className="name marginTop light">특징 : {pokemon.flavor}</p>
         
           <div className="moves marginTop light">
             <span>기술 : </span>
             {
-                pokemon[0].move.map(({move}, idx)=>{
+                pokemon.move.map(({move}, idx)=>{
                   if (idx < 5) {
                     return <span key={idx}>
                                 {

@@ -37,26 +37,26 @@ export const pokemonFetch = ({setPokemonData,currentpage,pokemonPerPage}) => {
     fetchData()
 }
 
-export const pokemonDetailFetch = ({ id, setPokemonDetailData}) => {
+export const pokemonDetailFetch = ({ id,name, type, setPokemonDetailData}) => {
 
+    const allPokemonData = [];
     const fetchData = async()=>{
-        const allPokemonData = [];
    
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-        const koreanName = speciesResponse.data.names.find(name => name.language.name === 'ko');
+        // const koreanName = speciesResponse.data.names.find(name => name.language.name === 'ko');
         const koreanGenera = speciesResponse.data.genera.find(name => name.language.name === 'ko').genus;
         const koreanFlavor = speciesResponse.data.flavor_text_entries.find(name => name.language.name === 'ko').flavor_text;
 
-        const typesWithKoreanNames = await Promise.all(
-            response.data.types.map(async (type) => {
-              const typeResponse = await axios.get(type.type.url);
-              const koreanTypeName = typeResponse.data.names.find(
-                (name) => name.language.name === 'ko'
-              ).name;
-              return { ...type, type: { ...type.type, korean_name: koreanTypeName } };
-            })
-        );
+        // const typesWithKoreanNames = await Promise.all(
+        //     response.data.types.map(async (type) => {
+        //       const typeResponse = await axios.get(type.type.url);
+        //       const koreanTypeName = typeResponse.data.names.find(
+        //         (name) => name.language.name === 'ko'
+        //       ).name;
+        //       return { ...type, type: { ...type.type, korean_name: koreanTypeName } };
+        //     })
+        // );
         
         const abilitiesWithKoreanNames = await Promise.all(
             response.data.abilities.map(async (ability)=>{
@@ -84,8 +84,8 @@ export const pokemonDetailFetch = ({ id, setPokemonDetailData}) => {
         //최종 데이터
         allPokemonData.push({
             ...response,
-            korean_name: koreanName.name, 
-            type : typesWithKoreanNames,
+            korean_name: name, 
+            type : type,
             abilities : abilitiesWithKoreanNames,
             move : movesWithKoreanNames,
             genera : koreanGenera,
@@ -93,7 +93,7 @@ export const pokemonDetailFetch = ({ id, setPokemonDetailData}) => {
         });
         
        
-        setPokemonDetailData([allPokemonData]); 
+        setPokemonDetailData(allPokemonData); 
        
     };
     
