@@ -43,7 +43,7 @@ const Pokemon = () => {
     
     //포켓몬 디테일 페이지 
     const onPokemonDataliData = (idx, id, name, type)=> {
-    
+        setPokemonDetailData([])
         
         pokemonDetailFetch({id, name, type, setPokemonDetailData});
         
