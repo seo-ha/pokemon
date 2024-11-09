@@ -90,7 +90,6 @@ export const pokemonDetailFetch = ({ id, name, type, setPokemonDetailData}) => {
             genera : koreanGenera,
             flavor : koreanFlavor
         });
-        console.log(allPokemonData);
         
         setPokemonDetailData(allPokemonData); 
     };
