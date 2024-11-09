@@ -1,3 +1,4 @@
+import React from "react";
 
 function PokemonDetail({pokemon}) {
 
@@ -138,4 +139,4 @@ function PokemonDetail({pokemon}) {
   )
 }
 
-export default PokemonDetail
+export default React.memo(PokemonDetail)

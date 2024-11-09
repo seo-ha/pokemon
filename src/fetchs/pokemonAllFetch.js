@@ -5,7 +5,7 @@ export const pokemonAllFetch = ((setSerchPokemonData) => {
     
     const allPokemonData = [];
     
-    const fetchData = async()=>{
+    const fetchDataAll = async()=>{
         for (let i = 1; i <= totalPokemon ; i++) {
             
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
@@ -22,18 +22,16 @@ export const pokemonAllFetch = ((setSerchPokemonData) => {
                 })
             );
             
-            //최종 데이터
+            //최종 데이터 
             allPokemonData.push({ 
                 id : response.data.id,
                 img : response.data.sprites.other["official-artwork"].front_default,
                 korean_name: koreanName.name, 
                 type : typesWithKoreanNames,
             });
-        }
+        } 
         setSerchPokemonData(allPokemonData);
-       
-    };
-    
-    fetchData()
+    }; 
+    fetchDataAll()
 })
 

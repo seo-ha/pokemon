@@ -1,11 +1,12 @@
 import axios from "axios";
-import React from "react";
+import React, { useMemo } from "react";
 const totalPokemon = 151;
 
 export const pokemonFetch = ({setPokemonData,currentpage,pokemonPerPage}) => {
-    
+
     const pokemonData = [];
     const fetchData = async()=>{
+    
         for (let i = 1; i <= Math.min(currentpage * pokemonPerPage, totalPokemon) ; i++) {
             
             const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`)
@@ -31,7 +32,7 @@ export const pokemonFetch = ({setPokemonData,currentpage,pokemonPerPage}) => {
             
         }
         setPokemonData(pokemonData);
-       
+        
     };
  
     fetchData()
@@ -40,7 +41,7 @@ export const pokemonFetch = ({setPokemonData,currentpage,pokemonPerPage}) => {
 export const pokemonDetailFetch = ({ id, name, type, setPokemonDetailData}) => {
 
     const allPokemonData = [];
-    const fetchData = async()=>{
+    const fetchAllData = async()=>{
    
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
@@ -91,8 +92,7 @@ export const pokemonDetailFetch = ({ id, name, type, setPokemonDetailData}) => {
         });
         
         setPokemonDetailData(allPokemonData); 
-       
     };
     
-    fetchData()
+    fetchAllData()
 }
