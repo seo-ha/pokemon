@@ -2,8 +2,6 @@ import React from "react";
 
 function PokemonDetail({pokemon}) {
 
-  
-  
   let moveIdx = 0;
   
   const moveTop = () => {
@@ -42,7 +40,7 @@ function PokemonDetail({pokemon}) {
     
     moveIdx -- ;
   }
-    
+  
   return (
     <div className="detailBox">
       
@@ -69,7 +67,7 @@ function PokemonDetail({pokemon}) {
           <div className="ability marginTop light">
             <span>특성 : </span>
             {
-                pokemon.abilities.map(({ability}, idx)=>{
+                pokemon.abilities.map((ability, idx)=>{
                     return <span key={idx}>
                                 {ability.korean_name}
                                 {idx < pokemon.abilities.length - 1 ? ', ' : ''}
@@ -83,7 +81,7 @@ function PokemonDetail({pokemon}) {
           <div className="moves marginTop light">
             <span>기술 : </span>
             {
-                pokemon.move.map(({move}, idx)=>{
+                pokemon.move.map((move, idx)=>{
                   return <span key={idx}>
                               {
                                 move.korean_name === undefined

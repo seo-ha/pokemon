@@ -4,8 +4,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonDetail from './PokemonDetail';
 import logo from '../assets/logo.png'
 import pokeball from '../assets/pokeball.png';
-import { pokemonFetch, pokemonDetailFetch } from "../fetchs/pokemonFetch";
-import { pokemonAllFetch } from "../fetchs/pokemonAllFetch";
+import { pokemonFetch, pokemonDetailFetch, pokemonAllFetch } from "../fetchs/pokemonFetch";
+// import { pokemonAllFetch } from "../fetchs/pokemonAllFetch";
 
 const Pokemon = () => {
    
@@ -100,9 +100,10 @@ const Pokemon = () => {
                         {
                             searchInput.length <= 0 
                             ? pokemonData.map((item)=>{
-                            return <li key={item.data.id} className="item">
-                                    <button onClick={(e)=> onPokemonDataliData(e.target, item.data.id, item.korean_name, item.type) }>
-                                        <img src={item.data.sprites.other["official-artwork"].front_default} alt={item.korean_name} loading="lazy"/>
+                                
+                            return <li key={item.id} className="item">
+                                    <button onClick={(e)=> onPokemonDataliData(e.target, item.id, item.korean_name, item.type) }>
+                                        <img src={item.img} alt={item.korean_name} loading="lazy"/>
                                         <p>{item.korean_name}</p>
                                         <div className="types">
                                             {
