@@ -1,9 +1,9 @@
 .wrap { display: flex; align-items: center; justify-content: center; height: 100dvh; padding: 30px; background-color: black;}
-main { display: flex; flex-direction: column; width: 100%; max-width: 1400px; height: 100%; max-height: 1000px;}
+main { display: flex; flex-direction: column; width: 100%; max-width: 1200px; height: 100%; max-height: 1000px;}
 
 /*header*/
 header {
-    position: relative; display: flex; align-items: center; height: 100px; min-height: 100px; width: 50%; padding: 0 25px; z-index: 2;
+    position: relative; display: flex; align-items: center; height: 100px; min-height: 100px; width: 56%; padding: 0 25px; z-index: 2;
     
     &::after {content: ""; position: absolute; top: 0; left: 0px; width: 100.7%; height: 171px; background: url(./assets/header.svg) no-repeat center center / cover; border-radius: 15px 15px 0 0; overflow: hidden; z-index: -1;}
 
@@ -37,7 +37,7 @@ header {
     }
     
     .pokemonList {
-        width: 50%; height: 100%; padding: 85px 10px 25px 25px; box-shadow: -4px 0 1em rgba(0, 0, 0, 0.2);
+        width: 56%; height: 100%; padding: 85px 10px 25px 25px; box-shadow: -4px 0 1em rgba(0, 0, 0, 0.2);
         
         .infinite-scroll-component__outerdiv {height: 100%;}
         .infinite-scroll-component.container {padding-right: 15px;}
@@ -89,7 +89,7 @@ header {
     }
     
     .pokemonDetail {
-        position: relative; width: 50%; height: 100%; 
+        position: relative; width: 44%; height: 100%; 
         
         .closeView {
             position: absolute; top: 25px; right: 25px; display: none; width: 32px; height: 32px;
@@ -114,30 +114,30 @@ header {
                 &::-webkit-scrollbar-track {width: 100%; background-color: black; margin: 5px 0;}
                 
                 .imgBox {
-                    position: relative; display: flex; align-items: center; justify-content: center; width: 180px; height: 180px; margin: 60px auto 15px;
+                    position: relative; display: flex; align-items: center; justify-content: center; width: 125px; height: 125px; margin: 60px auto 15px;
                     img {width: 100%; height: 100%; object-fit: contain;}
                 }
                 
                 .txtBox {
                     padding: 20px 0 35px; 
-                    p {text-indent: -57px; padding-left: 57px;}
                     p, span { color: #377f0b; font-size: 18px; line-height: 1.5; word-break: keep-all;}
                     
-                    .light {
-                        padding: 5px 30px 5px 90px;
+                    .item {
+                        padding: 5px 30px;
                         
                         &.on {
                              background-color: #377f0b; color: white;
                             span { background-color: #377f0b; color: white;}
                         }
+
+                        & + .item { margin-top: 15px; }
                     }
                 }
                 
-                .marginTop {margin-top: 15px; text-indent: -57px; padding-left: 57px;}
             }
             
             .btns {
-                display: flex; justify-content: space-evenly; flex-grow: 1; margin-top: 25px; gap: 30px;
+                display: flex; justify-content: space-evenly; flex-grow: 1; margin-top: 25px; gap: 30px; min-height: 170px;
                 
                 div.left { display: flex; flex-direction: column; align-items: center; width: 55%; padding: 20px 0;
                     
@@ -194,13 +194,16 @@ header {
             .listUl {grid-template-columns: repeat(3, 1fr);}
         }
     }
+
 };
 
 @media (max-width:900px) {
+    main {max-width: 600px; }
     header {
         width: 100%;
         &::after {width: 100%;}
     }
+    
     .content {
         border-radius: 0 0 10px 10px;
         
@@ -210,7 +213,7 @@ header {
             width: 100%; box-shadow: none;
         }
         .pokemonDetail {
-           opacity: 0; pointer-events: none; transition: opacity .3s; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: calc(100% - 60px); height: calc(100% - 60px); max-height: 1000px; border-radius: 10px; z-index: 50; background-color: #bf4747;
+           opacity: 0; pointer-events: none; transition: opacity .3s; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: calc(100% - 60px); max-width: 600px; height: calc(100% - 60px); max-height: 1000px; border-radius: 10px; z-index: 50; background-color: #bf4747;
            
            &.on {opacity: 1; pointer-events: all;}
            
@@ -266,7 +269,7 @@ header {
                 padding: 65px 15px 20px;
                 
                 .viewBox  {
-                    flex-grow: 1; max-height: max-content;
+                    flex-grow: 1; max-height: initial;
                     .imgBox { margin: 40px auto 15px; width: 100px; height: 100px; }
                     .txtBox {
                         padding: 15px 0 30px;
@@ -282,7 +285,7 @@ header {
                 }
                 
                 .btns {
-                    flex-grow: 0; height: 150px; gap: 15px;
+                    flex-grow: 0; height: 150px; gap: 15px; min-height: fit-content;
                     
                     div.left {
                         width: 50%; padding: 0;
@@ -307,21 +310,6 @@ header {
         }
     }
 };
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
 @keyframes loading {
     from {transform: rotate(0);}
