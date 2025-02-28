@@ -1,6 +1,6 @@
 # 포켓몬 도감.
 
-![로고](https://github.com/seo-ha/pokemon/blob/main/src/assets/portfolio.jpg)
+![로고](https://github.com/seo-ha/pokemon/blob/main/public/assets/portfolio.jpg)
 + React, Pokemon.api를 이용한 포켓몬 도감입니다.
 + 링크 : https://seo-ha.github.io/pokemon/
 <br/>
@@ -41,9 +41,9 @@
 ## 작업 화면
 
 ### Main
-![main](https://github.com/seo-ha/pokemon/blob/main/src/assets/portfolio_1.png)
+![main](https://github.com/seo-ha/pokemon/blob/main/public/assets/portfolio_1.png)
 <br/>
 
 ### 검색화면
-![work](https://github.com/seo-ha/pokemon/blob/main/src/assets/portfolio_2.png)
+![work](https://github.com/seo-ha/pokemon/blob/main/public/assets/portfolio_2.png)
 

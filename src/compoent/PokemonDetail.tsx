@@ -1,32 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { PokemonDetailType } from './../types/Data';
 
-function PokemonDetail({ pokemon }) {
+interface Props {
+  pokemon : PokemonDetailType
+}
+
+const PokemonDetail:React.FC<Props> = ({pokemon}) => {
   const [moveIdx, setMoveIdx] = useState(0);
-  const viewHight = document.querySelector(".viewBox");
+  const viewRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(()=>{
+    if(!viewRef.current) return;
+
+    if(moveIdx === 3) {
+      viewRef.current.scrollTo({top : viewRef.current.scrollHeight, behavior:'smooth'});
+    } else if(moveIdx === 4 ) {
+      viewRef.current.scrollTo({top : 0, behavior:'smooth'});
+    }
+  },[moveIdx])
 
   const moveBottom = () => {
+    if(!pokemon.move || pokemon.move.length === 0) return;
     setMoveIdx((prevIdx) => (prevIdx + 1) % pokemon.move.length);
-
-    if (moveIdx === 3) {
-      viewHight.scrollTo({ top: viewHight.scrollHeight, behavior: "smooth" });
-    } else if (moveIdx === 4) {
-      viewHight.scrollTo({ top: 0, behavior: "smooth" });
-    }
   };
 
   const moveTop = () => {
+    if(!pokemon.move || pokemon.move.length === 0) return;
     setMoveIdx((prevIdx) => (prevIdx - 1 + pokemon.move.length) % pokemon.move.length);
-
-    if (moveIdx === 0) {
-      viewHight.scrollTo({ top: viewHight.scrollHeight, behavior: "smooth" });
-    } else if (moveIdx === 1) {
-      viewHight.scrollTo({ top: 0, behavior: "smooth" });
-    }
   };
 
   return (
     <div className="detailBox">
-      <div className="viewBox">
+      <div className="viewBox" ref={viewRef}>
         <div className="imgBox">
           <img src={pokemon.img} alt={pokemon.korean_name} loading="lazy" />
         </div>
@@ -63,14 +68,12 @@ function PokemonDetail({ pokemon }) {
 
           <div className={moveIdx === 4 ? "moves item on" : "moves item"}>
             <span>기술 : </span>
-            {pokemon.move.map((move, idx) => {
-              return (
-                <span key={idx}>
-                  {move.korean_name && move.korean_name.name ? move.korean_name.name : ""}
-                  {idx < pokemon.move.length - 1 ? ", " : ""}
-                </span>
-              );
-            })}
+            { pokemon.move && pokemon.move.map((move, idx) => (
+              <span key={idx}>
+                {move.korean_name}
+                {idx < pokemon.move.length - 1 ? "," : ''}
+              </span>
+            ))}
           </div>
         </div>
       </div>
