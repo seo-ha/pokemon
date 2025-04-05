@@ -13,6 +13,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.1",
+    "react-icons": "^5.5.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-intersection-observer": "^9.13.0",
     "react-query": "^3.39.3",
@@ -54,6 +55,6 @@
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-react": "^7.37.4",
-    "typescript": "^5.7.3"
+    "typescript": "^4.9.5"
   }
 }

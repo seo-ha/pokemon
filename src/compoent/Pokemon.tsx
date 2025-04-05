@@ -1,12 +1,26 @@
-import React, { useCallback, useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+import React, { createContext, useCallback, useEffect, useState } from "react";
+
 import { fetchAllpokemonData, pokemonDetailFetch } from "../fetchs/pokemonFetch";
 import { Pokemon, PokemonDetailType } from "../types/Data";
-import PokemonDetail from "./PokemonDetail";
+
+import PokemonList from "./PokemonList";
+import PokemonDetailPage from "./PokemonDetailPage";
 
 const pokemonPerPage = 20;
 
-const PokemonList:React.FC = () => {
+export const MainContext = createContext({
+  searchInput : '' as string,
+  searchList : [] as Pokemon[],
+  pokemonData : [] as Pokemon[],
+  scrollData : [] as Pokemon[],
+  fetchMoerData : () =>{},
+  onPokemonDataliData : (id: number, name: string, type: any) =>{},
+  srollPageCount : pokemonPerPage as number,
+  pokemonDetailData : null as PokemonDetailType | null,
+  setPokemonDetailData : (() =>{}) as React.Dispatch<React.SetStateAction<PokemonDetailType | null>>,
+});
+
+const PokemonContainer:React.FC = () => {
   const [pokemonData, setPokemonData] = useState<Pokemon[]>([]); //전체 포켓몬 데이터
   const [scrollData, setScrollData] = useState<Pokemon[]>([]); //InfiniteScroll 데이터
   const [pokemonDetailData, setPokemonDetailData] = useState<PokemonDetailType | null>(null);
@@ -14,6 +28,7 @@ const PokemonList:React.FC = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const [srollPageCount, setScrollPageCount] = useState<number>(pokemonPerPage);
+
 
   useEffect(() => {
     //포켓몬 데이터 받아오기
@@ -50,65 +65,28 @@ const PokemonList:React.FC = () => {
   },[pokemonData]);
 
   return (
-    <div className="content">
-      <input
-        className={pokemonData.length > 0 ? "on" : ""}
-        type="search"
-        id="search"
-        placeholder={pokemonData.length > 0 ? "search..." : "loading.."}
-        value={searchInput}
-        onChange={(e) => onSearchChange(e)}
-        disabled={pokemonData.length > 0 ? false : true}
-      />
+    <MainContext.Provider value={{  
+      searchInput, searchList ,pokemonData, scrollData, 
+      fetchMoerData, onPokemonDataliData, srollPageCount, 
+      pokemonDetailData, setPokemonDetailData
+      }}>
+      <div className="content">
+        <input
+          className={pokemonData.length > 0 ? "on" : ""}
+          type="search"
+          id="search"
+          placeholder={pokemonData.length > 0 ? "search..." : "loading.."}
+          value={searchInput}
+          onChange={(e) => onSearchChange(e)}
+          disabled={pokemonData.length > 0 ? false : true}
+          />
 
-      <div className="pokemonList">
-        <InfiniteScroll
-          height={"100%"}
-          dataLength={
-            searchInput.length <= 0
-              ? scrollData.length
-              : searchList.length
-          }
-          next={searchInput.length === 0 ? fetchMoerData : ()=>{}}
-          hasMore={searchInput.length === 0 && srollPageCount < pokemonData.length }
-          loader={
-            <div className="loading">
-              <img src='/assets/pokeball.png' alt="loading" />
-            </div>
-          }
-          className="container"
-        >
-          <ul className="listUl">
-            {(searchInput.length === 0 ? scrollData : searchList).map((item) => (
-              <li key={item.id} className="item">
-                <button onClick={()=>onPokemonDataliData(item.id, item.korean_name, item.type)}>
-                  <img src={item.img} alt={item.korean_name} loading="lazy" />
-                  <p>{item.korean_name}</p>
-                  <div className="types">
-                    {item.type.map(({type}, idx) => (
-                      <span key={idx} className={type.name}>{type.korean_name}</span>
-                    ))}
-                  </div>
-                </button>
-              </li>
-            ))}
-              
-          </ul>
-        </InfiniteScroll>
-      </div>
+        <PokemonList/>
 
-      <div className={`pokemonDetali ${pokemonDetailData ? 'on' : ''}`}>
-        <button className="closeView" onClick={() => setPokemonDetailData(null)}></button>
-        {!pokemonDetailData ? (
-          <div className="listDefault">
-            <img src='/assets/logo.png' alt="포켓몬 로고" className="logo" />
-          </div>
-        ) : (
-          <PokemonDetail pokemon={pokemonDetailData} />
-        )}
+        <PokemonDetailPage/>
       </div>
-    </div>
+    </MainContext.Provider>
   );
 };
 
-export default React.memo(PokemonList);
+export default React.memo(PokemonContainer);

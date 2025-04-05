@@ -7,7 +7,7 @@ main { display: flex; flex-direction: column; width: 100%; max-width: 1200px; he
 header {
     position: relative; display: flex; align-items: center; height: 100px; min-height: 100px; width: 56%; padding: 0 25px; z-index: 2;
     
-    &::after {content: ""; position: absolute; top: 0; left: 0px; width: 100.7%; height: 171px; background: url("/assets/header.svg") no-repeat center center / cover !important; border-radius: 15px 15px 0 0; overflow: hidden; z-index: -1;}
+    &::after {content: ""; position: absolute; top: 0; left: 0px; width: 100.7%; height: 171px; background: var(--header) no-repeat center center / cover; border-radius: 15px 15px 0 0; overflow: hidden; z-index: -1;}
 
     .logo {
         width: 160px;
@@ -37,165 +37,179 @@ header {
        
         img { animation: loading 3s infinite reverse;}
     }
+}
     
-    .pokemonList {
-        width: 56%; height: 100%; padding: 85px 10px 25px 25px; box-shadow: -4px 0 1em rgba(0, 0, 0, 0.2);
-        
-        .infinite-scroll-component__outerdiv {height: 100%;}
-        .infinite-scroll-component.container {padding-right: 15px;}
-        .infinite-scroll-component.container::-webkit-scrollbar {width: 8px; border-radius: 4px;}
-        .infinite-scroll-component.container::-webkit-scrollbar-thumb {width: 100%; border-radius: 4px; background-color: #8d0909a1;}
-        .infinite-scroll-component.container::-webkit-scrollbar-track {width: 100%; background-color: rgb(183 157 157 / 15%); border-radius: 4px; margin-bottom: 15px;}
-        
-        .listUl {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-            
-            li {
-                  background: #57363670; border-radius: 4px; border: 2px solid #bf4747; transition:border .3s ;
-                &:hover {border: 2px dashed white;}
-                &.on {border: 2px dashed white;}
-                
-                button {display: block; width: 100%; padding: 10px 15px 20px; text-align: center;}
-                
-                img {width: 100%; max-width: 85px; aspect-ratio: auto 1/1; pointer-events: none;}
-                
-                p { display: block; margin-top: 10px; font-size: 15px; font-weight: 500; color: white; pointer-events: none;}
-                
-                .types {
-                    display: flex; align-items: center; justify-content: center; margin-top: 15px; gap: 8px 7px; pointer-events: none;
-                    
-                    span { 
-                        display: flex; align-items: center; justify-content: center; width: 50%; height: 30px; border-radius: 20px; color: white; font-size: 13px;
-                        
-                        &.fire {background-color: #cd4828;}
-                        &.poison {background-color: #7b099f;}
-                        &.grass {background-color: #4ba315;}
-                        &.flying {background-color: #4485bf;}
-                        &.bug {background-color: #9d8b00;}
-                        &.normal {background-color: #8d8d8d;}
-                        &.water {background-color: #26389b;}
-                        &.electric {background-color: #ebc11e;}
-                        &.ground {background-color: #895606;}
-                        &.fairy {background-color: #dd8aaf;}
-                        &.fighting {background-color: #db6a32;}
-                        &.psychic {background-color: #db49c1;}
-                        &.rock {background-color: #716b61;}
-                        &.steel {background-color: #556a8b;}
-                        &.ice {background-color: #44b0db;}
-                        &.ghost {background-color: #b700ff;}
-                        &.dragon {background-color: #323491;}
-                    }
-                }
-            }
-        }
+.pokemonList {
+    position: relative; width: 56%; height: 100%; padding: 85px 10px 25px 25px; box-shadow: -4px 0 1em rgba(0, 0, 0, 0.2);
+    
+    .infinite-scroll-component__outerdiv {height: 100%;}
+    .infinite-scroll-component.container {padding-right: 15px;}
+    .infinite-scroll-component.container::-webkit-scrollbar {width: 8px; border-radius: 4px;}
+    .infinite-scroll-component.container::-webkit-scrollbar-thumb {width: 100%; border-radius: 4px; background-color: #8d0909a1;}
+    .infinite-scroll-component.container::-webkit-scrollbar-track {width: 100%; background-color: rgb(183 157 157 / 15%); border-radius: 4px; margin-bottom: 15px;}
+    
+    .change-list {
+        position: absolute; top: 15px; right: 15px; width: 30px; height: 30px; z-index: 10;
+        svg {display: block; width: 100%; height: 100%; fill: #fff;}
     }
-    
-    .pokemonDetail {
-        position: relative; width: 44%; height: 100%; 
-        
-        .closeView {
-            position: absolute; top: 25px; right: 25px; display: none; width: 32px; height: 32px;
-            &::after {content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(45deg); width: 3px; height: 28px; border-radius: 3px; background-color: #000; }
-            &::before {content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-45deg); width: 3px; height: 28px; border-radius: 3px; background-color: #000; }
-        }
-        
-        .listDefault {
-            display: flex; align-items: center; justify-content: center; height: 100%;
-            img {
-                width: 80%; max-width: 300px; filter: grayscale(1);
-            }
-        }
-        
-        .detailBox { display: flex; flex-direction: column; height: 100%; padding: 85px 25px 25px; 
-            
-            .viewBox {
-                width: 100%; max-height: 500px; overflow-y: auto; border: 2px solid #999;background-color: black; border-radius: 4px;
-                
-                &::-webkit-scrollbar {width: 10px; border-radius: 4px;}
-                &::-webkit-scrollbar-thumb {width: 100%; border-radius: 4px;border: 3px solid black; background-color: #377f0b;}
-                &::-webkit-scrollbar-track {width: 100%; background-color: black; margin: 5px 0;}
-                
-                .imgBox {
-                    position: relative; display: flex; align-items: center; justify-content: center; width: 125px; height: 125px; margin: 60px auto 15px;
-                    img {width: 100%; height: 100%; object-fit: contain;}
-                }
-                
-                .txtBox {
-                    padding: 20px 0 35px; 
-                    p, span { color: #377f0b; font-size: 18px; line-height: 1.5; word-break: keep-all;}
-                    
-                    .item {
-                        padding: 5px 30px;
-                        
-                        &.on {
-                             background-color: #377f0b; color: white;
-                            span { background-color: #377f0b; color: white;}
-                        }
 
-                        & + .item { margin-top: 15px; }
-                    }
-                }
-                
-            }
+    .listUl {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+        
+        li {
+            position: relative; background: #57363670; border-radius: 4px; border: 2px solid #bf4747; transition:border .3s ;
+
+            &:hover {border: 2px dashed white;}
+            &.on {border: 2px dashed white;}
             
-            .btns {
-                display: flex; justify-content: space-evenly; flex-grow: 1; margin-top: 25px; gap: 30px; min-height: 170px;
-                
-                div.left { display: flex; flex-direction: column; align-items: center; width: 55%; padding: 20px 0;
-                    
-                    button {
-                        height: 100%; min-height: 28px; border-radius: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-                        
-                        &.wid30 {width: 30%;}
-                        &.wid70 {width: 70%;}
-                        &.wid100 {width: 100%;}
-                        
-                        &.bg1 {background-color: #1c7957;}
-                        &.bg2 {background-color: #cdaf0f;}
-                        &.bg3 {background-color: #162e75;}
-                    }
-                    
-                    .flexBox { 
-                        width: 100%; height: 100%; display: flex; align-items: center; gap: 0 20px;
-                        
-                        & + .flexBox { margin-top: 20px;}
-                    }
+            button.star {
+                position: absolute; top: 10px; right: 10px; width: 25px; height: 25px;
+
+                svg {display: block; width: 100%; height: 100%; fill: #ffffff50;}
+                &.on {
+                    svg {fill: #fff;}
                 }
+            }
+            button.link {display: block; width: 100%; padding: 10px 15px 20px; text-align: center;}
+            
+            img {width: 100%; max-width: 85px; aspect-ratio: auto 1/1; pointer-events: none;}
+            
+            p { display: block; margin-top: 10px; font-size: 15px; font-weight: 500; color: white; pointer-events: none;}
+            
+            .types {
+                display: flex; align-items: center; justify-content: center; margin-top: 15px; gap: 8px 7px; pointer-events: none;
                 
-                div.right {
-                    display: flex; align-items: center; justify-content: center; width: 30%;
+                span { 
+                    display: flex; align-items: center; justify-content: center; width: 50%; height: 30px; border-radius: 20px; color: white; font-size: 13px;
                     
-                    .gridBox {width: 100%; aspect-ratio: auto 1/1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);}
-                    
-                    button {
-                       position: relative; display: block; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); background-color: #717171;
-                        
-                        &.top {
-                            grid-column-start: 2; border-radius: 10px 10px 0 0; 
-                            
-                            &::after {content: ''; position: absolute; top: 55%; left: 50%; width: 15px; height: 15px; transform: translate(-50%, -50%) rotate(315deg); border-top: 2px solid #adadad; border-right: 2px solid #adadad;}
-                        }
-                        &.left {grid-column-start: 1; grid-row-start: 2; border-radius: 10px 0 0 10px; }
-                        &.center {grid-column-start: 2; grid-row-start: 2;}
-                        &.right {grid-column-start: 3; grid-row-start: 2; border-radius: 0 10px 10px 0;}
-                        &.bottom{grid-column-start: 2; grid-row-start: 3; border-radius: 0 0 10px 10px;                            
-                            &::after {content: ''; position: absolute; top: 45%; left: 50%; width: 15px; height: 15px; transform: translate(-50%, -50%) rotate(135deg); border-top: 2px solid #adadad; border-right: 2px solid #adadad;}
-                        }
-                    }
+                    &.fire {background-color: #cd4828;}
+                    &.poison {background-color: #7b099f;}
+                    &.grass {background-color: #4ba315;}
+                    &.flying {background-color: #4485bf;}
+                    &.bug {background-color: #9d8b00;}
+                    &.normal {background-color: #8d8d8d;}
+                    &.water {background-color: #26389b;}
+                    &.electric {background-color: #ebc11e;}
+                    &.ground {background-color: #895606;}
+                    &.fairy {background-color: #dd8aaf;}
+                    &.fighting {background-color: #db6a32;}
+                    &.psychic {background-color: #db49c1;}
+                    &.rock {background-color: #716b61;}
+                    &.steel {background-color: #556a8b;}
+                    &.ice {background-color: #44b0db;}
+                    &.ghost {background-color: #b700ff;}
+                    &.dragon {background-color: #323491;}
                 }
-                
             }
         }
-        
     }
 }
 
-@media (max-width:1200px) {
-    .content {
-        .pokemonList {
-            .listUl {grid-template-columns: repeat(3, 1fr);}
+.pokemonDetail {
+    position: relative; width: 44%; height: 100%; 
+    
+    .closeView {
+        position: absolute; top: 25px; right: 25px; display: none; width: 32px; height: 32px;
+        &::after {content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(45deg); width: 3px; height: 28px; border-radius: 3px; background-color: #000; }
+        &::before {content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-45deg); width: 3px; height: 28px; border-radius: 3px; background-color: #000; }
+    }
+    
+    .listDefault {
+        display: flex; align-items: center; justify-content: center; height: 100%;
+        .logo {
+            width: 80%; max-width: 300px; filter: grayscale(1);
         }
     }
+    
+    .detailBox { display: flex; flex-direction: column; height: 100%; padding: 85px 25px 25px; 
+        
+        .viewBox {
+            width: 100%; max-height: 500px; overflow-y: auto; border: 2px solid #999;background-color: black; border-radius: 4px;
+            
+            &::-webkit-scrollbar {width: 10px; border-radius: 4px;}
+            &::-webkit-scrollbar-thumb {width: 100%; border-radius: 4px;border: 3px solid black; background-color: #377f0b;}
+            &::-webkit-scrollbar-track {width: 100%; background-color: black; margin: 5px 0;}
+            
+            .imgBox {
+                position: relative; display: flex; align-items: center; justify-content: center; width: 125px; height: 125px; margin: 60px auto 15px;
+                img {width: 100%; height: 100%; object-fit: contain;}
+            }
+            
+            .txtBox {
+                padding: 20px 0 35px; 
+                p, span { color: #377f0b; font-size: 18px; line-height: 1.5; word-break: keep-all;}
+                
+                .item {
+                    padding: 5px 30px;
+                    
+                    &.on {
+                            background-color: #377f0b; color: white;
+                        span { background-color: #377f0b; color: white;}
+                    }
+
+                    & + .item { margin-top: 15px; }
+                }
+            }
+            
+        }
+        
+        .btns {
+            display: flex; justify-content: space-evenly; flex-grow: 1; margin-top: 25px; gap: 30px; min-height: 170px;
+            
+            div.left { display: flex; flex-direction: column; align-items: center; width: 55%; padding: 20px 0;
+                
+                button {
+                    height: 100%; min-height: 28px; border-radius: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+                    
+                    &.wid30 {width: 30%;}
+                    &.wid70 {width: 70%;}
+                    &.wid100 {width: 100%;}
+                    
+                    &.bg1 {background-color: #1c7957;}
+                    &.bg2 {background-color: #cdaf0f;}
+                    &.bg3 {background-color: #162e75;}
+                }
+                
+                .flexBox { 
+                    width: 100%; height: 100%; display: flex; align-items: center; gap: 0 20px;
+                    
+                    & + .flexBox { margin-top: 20px;}
+                }
+            }
+            
+            div.right {
+                display: flex; align-items: center; justify-content: center; width: 30%;
+                
+                .gridBox {width: 100%; aspect-ratio: auto 1/1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);}
+                
+                button {
+                    position: relative; display: block; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); background-color: #717171;
+                    
+                    &.top {
+                        grid-column-start: 2; border-radius: 10px 10px 0 0; 
+                        
+                        &::after {content: ''; position: absolute; top: 55%; left: 50%; width: 15px; height: 15px; transform: translate(-50%, -50%) rotate(315deg); border-top: 2px solid #adadad; border-right: 2px solid #adadad;}
+                    }
+                    &.left {grid-column-start: 1; grid-row-start: 2; border-radius: 10px 0 0 10px; }
+                    &.center {grid-column-start: 2; grid-row-start: 2;}
+                    &.right {grid-column-start: 3; grid-row-start: 2; border-radius: 0 10px 10px 0;}
+                    &.bottom{grid-column-start: 2; grid-row-start: 3; border-radius: 0 0 10px 10px;                            
+                        &::after {content: ''; position: absolute; top: 45%; left: 50%; width: 15px; height: 15px; transform: translate(-50%, -50%) rotate(135deg); border-top: 2px solid #adadad; border-right: 2px solid #adadad;}
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
+
+@media (max-width:1200px) {
+    
+    .pokemonList {
+        .listUl {grid-template-columns: repeat(3, 1fr);}
+    }
+    
 
 };
 
@@ -210,18 +224,19 @@ header {
         border-radius: 0 0 10px 10px;
         
         #search {width:calc(100% / 2 - 50px)}
-    
-        .pokemonList {
-            width: 100%; box-shadow: none;
-        }
-        .pokemonDetail {
-           opacity: 0; pointer-events: none; transition: opacity .3s; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: calc(100% - 60px); max-width: 600px; height: calc(100% - 60px); max-height: 1000px; border-radius: 10px; z-index: 50; background-color: #bf4747;
-           
-           &.on {opacity: 1; pointer-events: all;}
-           
-           .closeView {display: block}
-        }
     }
+
+    .pokemonList {
+        width: 100%; box-shadow: none;
+    }
+    .pokemonDetail {
+        opacity: 0; pointer-events: none; transition: opacity .3s; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: calc(100% - 60px); max-width: 600px; height: calc(100% - 60px); max-height: 1000px; border-radius: 10px; z-index: 50; background-color: #bf4747;
+        
+        &.on {opacity: 1; pointer-events: all;}
+        
+        .closeView {display: block}
+    }
+    
 };
 
 @media (max-width:600px) {
@@ -243,74 +258,75 @@ header {
         #search { left: 17px; width: calc(50% - 30px); height: 34px; font-size: 12px;}
         
         .loading {padding: 40px 0;}
+    }
+
+    .pokemonList {
+        padding: 55px 7px 20px 15px;
         
-        .pokemonList {
-            padding: 55px 7px 20px 15px;
-            
-            .infinite-scroll-component.container {padding-right: 10px;}
-            .infinite-scroll-component.container::-webkit-scrollbar {width: 6px;}
-            
-            .listUl {
-                grid-template-columns: repeat(2, 1fr);
-                
-                li{
-                    .types {
-                        span {font-size: 12px}
-                    }
-                    
-                }
-            }
-        }
+        .infinite-scroll-component.container {padding-right: 10px;}
+        .infinite-scroll-component.container::-webkit-scrollbar {width: 6px;}
         
-        .pokemonDetail {
-            width: calc(100% - 30px); height: calc(100% - 40px);
+        .listUl {
+            grid-template-columns: repeat(2, 1fr);
             
-            .closeView {top: 15px; right: 15px;} 
-            
-            .detailBox  {
-                padding: 65px 15px 20px;
-                
-                .viewBox  {
-                    flex-grow: 1; max-height: initial;
-                    .imgBox { margin: 40px auto 15px; width: 100px; height: 100px; }
-                    .txtBox {
-                        padding: 15px 0 30px;
-                        
-                        p, span {font-size: 15px}
-                        
-                        .light {
-                            padding: 5px 15px 5px 80px;
-                        }
-                    }
-                    
-                    .marginTop  {margin-top: 10px}
+            li{
+                .types {
+                    span {font-size: 12px}
                 }
                 
-                .btns {
-                    flex-grow: 0; height: 150px; gap: 15px; min-height: fit-content;
-                    
-                    div.left {
-                        width: 50%; padding: 0;
-                        
-                        button {border-radius: 6px;}
-                        
-                        .flexBox  {
-                            gap: 0 4px;
-                            
-                            &.mHide {display: none;}
-                            & + .flexBox  {margin-top: 8px;}
-                        }
-                    }
-                    
-                    div.right {
-                        width: 50%;
-                        
-                        .gridBox { width: fit-content; height: 100%;}
-                    }
-                 }
             }
         }
     }
+    
+    .pokemonDetail {
+        width: calc(100% - 30px); height: calc(100% - 40px);
+        
+        .closeView {top: 15px; right: 15px;} 
+        
+        .detailBox  {
+            padding: 65px 15px 20px;
+            
+            .viewBox  {
+                flex-grow: 1; max-height: initial;
+                .imgBox { margin: 40px auto 15px; width: 100px; height: 100px; }
+                .txtBox {
+                    padding: 15px 0 30px;
+                    
+                    p, span {font-size: 15px}
+                    
+                    .light {
+                        padding: 5px 15px 5px 80px;
+                    }
+                }
+                
+                .marginTop  {margin-top: 10px}
+            }
+            
+            .btns {
+                flex-grow: 0; height: 150px; gap: 15px; min-height: fit-content;
+                
+                div.left {
+                    width: 50%; padding: 0;
+                    
+                    button {border-radius: 6px;}
+                    
+                    .flexBox  {
+                        gap: 0 4px;
+                        
+                        &.mHide {display: none;}
+                        & + .flexBox  {margin-top: 8px;}
+                    }
+                }
+                
+                div.right {
+                    width: 50%;
+                    
+                    .gridBox { width: fit-content; height: 100%;}
+                }
+                }
+        }
+    }
+   
 };
         
 @keyframes loading {
